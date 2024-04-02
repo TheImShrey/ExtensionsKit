@@ -55,7 +55,7 @@ struct BlurredBackground<Content> where Content: UIView {
     func trackHierarchy() {
         self.wrappedValue.rx.methodInvoked(#selector(UIView.didMoveToSuperview))
             .subscribe(onNext: { [self] _ in
-                /// `self` doesn't leak here as this is struct
+                /// Notice: No retain cycle`self` as this is struct
                 self.resetHierarchy()
             })
             .disposed(by: self.disposeBag)
